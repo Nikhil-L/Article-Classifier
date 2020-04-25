@@ -2,6 +2,7 @@
 import requests
 from bs4 import BeautifulSoup
 
+
 def getAllDoxyDonkeyPosts(url, links):
     response = requests.get(url)
     soup = BeautifulSoup(response.text)
@@ -18,7 +19,22 @@ def getAllDoxyDonkeyPosts(url, links):
     return
 
 
+ def getDoxyDonkeyPost(TextUrl):
+    response = requests.get(TextUrl)
+    soup = BeautifulSoup(response.text)
+    mydivs = soup.findAll("div", {'class':'post-body'})
+    
+    posts = []
+    for div in mydivs:
+        posts += map(lambda p : p.text.encode('ascii', errors = 'replace').replace(b"?", b" ").decode('ascii'), div.findAll('li'))
+    return posts
+
+
 if __name__ == '__main__':
 	url = 'http://doxydonkey.blogspot.com/'
 	links = []
 	getAllDoxyDonkeyPosts(url, links)
+
+	doxyDonkeyPosts = []
+	for link in links:
+	    doxyDonkeyPosts += getDoxyDonkeyPost(link)
