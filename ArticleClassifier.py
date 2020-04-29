@@ -1,5 +1,6 @@
 
 import requests
+import pandas as pd
 from bs4 import BeautifulSoup
 
 
@@ -38,3 +39,5 @@ if __name__ == '__main__':
 	doxyDonkeyPosts = []
 	for link in links:
 	    doxyDonkeyPosts += getDoxyDonkeyPost(link)
+	df = pd.DataFrame({'posts': doxyDonkeyPosts})
+	df.to_csv('doxyDonkeyPosts.csv')
