@@ -40,4 +40,6 @@ if __name__ == '__main__':
 	for link in links:
 	    doxyDonkeyPosts += getDoxyDonkeyPost(link)
 	df = pd.DataFrame({'posts': doxyDonkeyPosts})
-	df.to_csv('doxyDonkeyPosts.csv')
+	df.to_csv('doxyDonkeyPosts.csv', index = False)
+	df = pd.DataFrame({'links':links})
+	df.to_csv('getDoxyDonkeyPostLinks', index = False)
